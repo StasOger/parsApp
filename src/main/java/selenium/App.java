@@ -1,43 +1,40 @@
 package selenium;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import repository.PostRepository;
 import selenium.controller.GmailController;
+import selenium.model.Post;
 
+import java.awt.print.Book;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class App {
+    private static PostRepository postRepository = new PostRepository();
+
     public static void main(String[] args) throws IOException{
-        Post post = new Post();
-        List<Post> posts = new ArrayList<>();
+
         System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
         WebDriver webDriver = new ChromeDriver();
         webDriver.get("https://cars.av.by/filter?year[min]=2019&price_usd[min]=12000&sort=4");
 
-        String model = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[1]/div/div[2]/h3/a")).getText();
+        String model = webDriver.findElement(By.className("link-text")).getText();
         String link = webDriver.findElement(By.className("listing-item__link")).getAttribute("href");
-        String description = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[1]/div/div[3]")).getText();
-        String dateOfCreate = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[1]/div/div[6]/div[2]")).getText();
+        String description = webDriver.findElement(By.className("listing-item__params")).getText();
+        String dateOfCreate = webDriver.findElement(By.className("listing-item__date")).getText();
 
-        post.setModel(model);
-        post.setLink(link);
-        post.setDescription(description);
-        post.setGetDateOfCreate(dateOfCreate);
+        List<Post> postList = postRepository.getAllPosts();
 
-        posts.add(post);
+        postRepository.addPost(new Post(model, description, dateOfCreate, link));
+
 
         System.out.println(model+". Описание: "+description+".   Опубликовано "+dateOfCreate+"   "+link);
-
-        GmailController gmail = new GmailController();
-        gmail.send(model+". Описание: "+description+".   Опубликовано "+dateOfCreate+"   "+link);
+//
+//        GmailController gmail = new GmailController();
+//        gmail.send(model+". Описание: "+description+".   Опубликовано "+dateOfCreate+"   "+link);
 
     }
 }

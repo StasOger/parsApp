@@ -1,12 +1,12 @@
-package selenium;
+package selenium.model;
 
 public class Post {
     private String model;
     private String link;
     private String description;
-    private String getDateOfCreate;
+    private String dateOfCreate;
 
-    public Post() {
+    public Post(String model, String link, String description, String getDateOfCreate) {
     }
 
     @Override
@@ -15,7 +15,7 @@ public class Post {
                 "model='" + model + '\'' +
                 ", link='" + link + '\'' +
                 ", description='" + description + '\'' +
-                ", getDateOfCreate='" + getDateOfCreate + '\'' +
+                ", getDateOfCreate='" + dateOfCreate + '\'' +
                 '}';
     }
 
@@ -43,11 +43,11 @@ public class Post {
         this.description = description;
     }
 
-    public String getGetDateOfCreate() {
-        return getDateOfCreate;
+    public String getDateOfCreate() {
+        return dateOfCreate;
     }
 
-    public void setGetDateOfCreate(String getDateOfCreate) {
-        this.getDateOfCreate = getDateOfCreate;
+    public void setDateOfCreate(String dateOfCreate) {
+        this.dateOfCreate = dateOfCreate;
     }
 }

@@ -4,7 +4,7 @@
 //import org.jsoup.nodes.Document;
 //import org.jsoup.nodes.Element;
 //import org.jsoup.select.Elements;
-//import selenium.Post;
+//import selenium.model.Post;
 //
 //import java.io.IOException;
 //import java.util.ArrayList;
