@@ -2,20 +2,27 @@ package selenium.model;
 
 public class Post {
     private String model;
-    private String link;
     private String description;
     private String dateOfCreate;
+    private String link;
 
-    public Post(String model, String link, String description, String getDateOfCreate) {
+    public Post() {
+    }
+
+    public Post(String model, String description, String dateOfCreate, String link) {
+        this.model = model;
+        this.description = description;
+        this.dateOfCreate = dateOfCreate;
+        this.link = link;
     }
 
     @Override
     public String toString() {
         return "Post{" +
                 "model='" + model + '\'' +
-                ", link='" + link + '\'' +
                 ", description='" + description + '\'' +
-                ", getDateOfCreate='" + dateOfCreate + '\'' +
+                ", dateOfCreate='" + dateOfCreate + '\'' +
+                ", link='" + link + '\'' +
                 '}';
     }
 

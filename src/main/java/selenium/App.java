@@ -15,26 +15,21 @@ import java.util.List;
 public class App {
     private static PostRepository postRepository = new PostRepository();
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Post post = new Post();
 
-        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
-        WebDriver webDriver = new ChromeDriver();
-        webDriver.get("https://cars.av.by/filter?year[min]=2019&price_usd[min]=12000&sort=4");
+//        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
+//        WebDriver webDriver = new ChromeDriver();
 
-        String model = webDriver.findElement(By.className("link-text")).getText();
-        String link = webDriver.findElement(By.className("listing-item__link")).getAttribute("href");
-        String description = webDriver.findElement(By.className("listing-item__params")).getText();
-        String dateOfCreate = webDriver.findElement(By.className("listing-item__date")).getText();
+//        for (int i=0; i<=20; i++) {
+//            Thread.sleep(10000);
+//            webDriver.get("https://cars.av.by/filter?year[min]=2019&price_usd[min]=12000&sort=4");
+//            post.setModel(webDriver.findElement(By.className("listing-item__link")).getText());
+//            post.setLink(webDriver.findElement(By.className("listing-item__link")).getAttribute("href"));
+//            post.setDescription(webDriver.findElement(By.className("listing-item__params")).getText());
+//            post.setDateOfCreate(webDriver.findElement(By.className("listing-item__date")).getText());
+//            postRepository.addPost(post);
 
-        List<Post> postList = postRepository.getAllPosts();
-
-        postRepository.addPost(new Post(model, description, dateOfCreate, link));
-
-
-        System.out.println(model+". Описание: "+description+".   Опубликовано "+dateOfCreate+"   "+link);
-//
-//        GmailController gmail = new GmailController();
-//        gmail.send(model+". Описание: "+description+".   Опубликовано "+dateOfCreate+"   "+link);
-
+//        }
     }
 }

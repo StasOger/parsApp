@@ -2,6 +2,7 @@ package repository;
 
 import selenium.model.Post;
 
+import java.io.*;
 import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -19,20 +20,29 @@ public class PostRepository {
     private static final String ADDRESS_FILE = "src/main/resources/Posts.csv";
 
     public List<Post>  getAllPosts (){
-        return readPostsFromCSV(ADDRESS_FILE);
+        List<Post> posts = readPostsFromCSV(ADDRESS_FILE);
+        return posts;
     }
 
     private static List<Post> readPostsFromCSV(String fileName) {
         List<Post> posts = new ArrayList<>();
         Path pathToFile = Paths.get(fileName);
-
+        // create an instance of BufferedReader
+        // using try with resource, Java 7 feature to close resources
         try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.UTF_8)) {
-
+            // read the first line from the text file
             String line = br.readLine();
+            // loop until all lines are read
             while (line != null) {
-                String[] attributes = line.split(",");
+                // use string.split to load a string array with the values from
+                // each line of
+                // the file, using a comma as the delimiter
+                String[] attributes = line.split("%");
                 Post post = createPost(attributes);
+//                   adding book into ArrayList
                 posts.add(post);
+                // read next line before looping
+                // if end of file reached, line would be null
                 line = br.readLine();
             }
         }
@@ -42,12 +52,14 @@ public class PostRepository {
         return posts;
     }
 
+
+
     private static Post createPost(String[] metadata) {
         String model = metadata[0];
-        String link = metadata[1];
-        String description = metadata[2];
-        String dateOfCreate = metadata[3];
-        return new Post(model, link, description, dateOfCreate);
+        String description = metadata[1];
+        String dateOfCreate = metadata[2];
+        String link = metadata[3];
+        return new Post(model, description, dateOfCreate, link);
     }
 
     public void addPost (Post post) throws FileNotFoundException {
@@ -55,11 +67,11 @@ public class PostRepository {
         {
             writer.append("\n");
             writer.append(String.valueOf(post.getModel()));
-            writer.append(":");
+            writer.append("%");
             writer.append(String.valueOf(post.getDescription()));
-            writer.append(":");
+            writer.append("%");
             writer.append(String.valueOf(post.getDateOfCreate()));
-            writer.append(":");
+            writer.append("%");
             writer.append(String.valueOf(post.getLink()));
 
             writer.flush();
