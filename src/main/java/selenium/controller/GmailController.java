@@ -37,7 +37,7 @@ public class GmailController {
 
             Transport.send(message);
 
-            System.out.println("Done");
+            System.out.println("Send by mail");
 
         } catch (MessagingException e) {
             e.printStackTrace();

@@ -59,7 +59,8 @@ public class PostRepository {
         String description = metadata[1];
         String dateOfCreate = metadata[2];
         String link = metadata[3];
-        return new Post(model, description, dateOfCreate, link);
+        String price = metadata[4];
+        return new Post(model, description, dateOfCreate, link, price);
     }
 
     public void addPost (Post post) throws FileNotFoundException {
@@ -73,6 +74,8 @@ public class PostRepository {
             writer.append(String.valueOf(post.getDateOfCreate()));
             writer.append("%");
             writer.append(String.valueOf(post.getLink()));
+            writer.append("%");
+            writer.append(String.valueOf(post.getPrice()));
 
             writer.flush();
         }
