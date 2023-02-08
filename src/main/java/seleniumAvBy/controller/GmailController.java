@@ -1,4 +1,4 @@
-package selenium.controller;
+package seleniumAvBy.controller;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

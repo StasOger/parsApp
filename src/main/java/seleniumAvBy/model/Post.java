@@ -1,4 +1,4 @@
-package selenium.model;
+package seleniumAvBy.model;
 
 public class Post {
     private String model;

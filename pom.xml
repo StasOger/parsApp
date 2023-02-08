@@ -32,5 +32,23 @@
             <artifactId>selenium-java</artifactId>
             <version>4.8.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>6.4.0</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.telegram</groupId>-->
+<!--            <artifactId>telegrambots-spring-boot-starter</artifactId>-->
+<!--            <version>5.0.1</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.github.pengrad</groupId>-->
+<!--            <artifactId>java-telegram-bot-api</artifactId>-->
+<!--            <version>6.3.0</version>-->
+<!--        </dependency>-->
     </dependencies>
 </project>

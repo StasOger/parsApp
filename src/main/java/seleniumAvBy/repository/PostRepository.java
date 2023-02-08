@@ -1,9 +1,7 @@
-package repository;
+package seleniumAvBy.repository;
 
-import selenium.model.Post;
+import seleniumAvBy.model.Post;
 
-import java.io.*;
-import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
