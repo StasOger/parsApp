@@ -18,7 +18,7 @@ public class MainApp {
             e.printStackTrace();
         }
 
-        ParsAvBy parsAvBy = new ParsAvBy();
-        parsAvBy.run();
+//        ParsAvBy parsAvBy = new ParsAvBy();
+//        parsAvBy.run();
     }
 }

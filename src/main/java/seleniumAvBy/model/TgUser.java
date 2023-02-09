@@ -4,21 +4,24 @@ public class TgUser {
 
     private String chatId;
     private String username;
-
-    public TgUser(String chatId, String username) {
-        this.chatId = chatId;
-        this.username = username;
-    }
-
-    public TgUser() {
-    }
+    private String linkFiltr;
 
     @Override
     public String toString() {
         return "TgUser{" +
                 "chatId='" + chatId + '\'' +
                 ", username='" + username + '\'' +
+                ", linkFiltr='" + linkFiltr + '\'' +
                 '}';
+    }
+
+    public TgUser() {
+    }
+
+    public TgUser(String chatId, String username, String linkFiltr) {
+        this.chatId = chatId;
+        this.username = username;
+        this.linkFiltr = linkFiltr;
     }
 
     public String getChatId() {
@@ -35,5 +38,13 @@ public class TgUser {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getLinkFiltr() {
+        return linkFiltr;
+    }
+
+    public void setLinkFiltr(String linkFiltr) {
+        this.linkFiltr = linkFiltr;
     }
 }

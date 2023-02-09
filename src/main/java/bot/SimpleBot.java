@@ -27,32 +27,36 @@ public class SimpleBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 
-        Post post = new Post();
         TgUser tgUser = new TgUser();
-        ParsAvBy parsAvBy = new ParsAvBy();
         SendMessage responce = new SendMessage();
-        String messagef = "Нажмите /run для начала";
-        responce.setText(messagef);
-        try {
-            execute(responce);
-//                execute(responce1);
-        } catch (TelegramApiException E){
-            E.printStackTrace();
-        }
-//        System.out.println(update.getMessage().getText());
-//        System.out.println(update.getMessage().getFrom().getFirstName());
+
+        System.out.println(update.getMessage().getText());
+        System.out.println(update.getMessage().getFrom().getFirstName());
+
+
         String command = update.getMessage().getText();
-        System.out.println("Нажмите /run для начала");
         if (command.equals("/run")){
-
-            String message = post.getModel() + "gay";
+            responce.setText("Шаг 1: Откройте сайт https://av.by/ \n" +
+                    "Шаг 2: настройте фильтр поиска нужных вам авто с нужными параметрами \n" +
+                    "Шаг 3: отправьте эту ссылку в этот чат");
             System.out.println("работает метод onUpdateReceived");
+            String linkFromUser = update.getMessage().getText();
+            System.out.println(linkFromUser);
+            long userChanId = update.getMessage().getChatId();
+            System.out.println(userChanId);
 
+            System.out.println("идем дальше");
             responce.setChatId(update.getMessage().getChatId().toString());
+            System.out.println("идем дальше1");
             tgUser.setChatId(responce.getChatId());
+            System.out.println("идем дальше2");
             tgUser.setUsername(update.getMessage().getFrom().getFirstName());
-            System.out.println(responce.getChatId());
+            System.out.println("идем дальше3");
+            tgUser.setLinkFiltr(update.getMessage().getText());
+
             System.out.println(update.getMessage().getFrom().getFirstName());
+
+            System.out.println(update.getMessage().getText());
 
             for (TgUser tgUser1 : tgUserList) {
                 chatIdList.add(tgUser1.getChatId());
@@ -66,7 +70,6 @@ public class SimpleBot extends TelegramLongPollingBot {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            responce.setText(message);
 
             try {
                 execute(responce);
@@ -86,9 +89,6 @@ public class SimpleBot extends TelegramLongPollingBot {
             responce.setChatId(tgUser.getChatId());
             responce.setText(messageText);
 
-//        SendMessage responce1 = new SendMessage();
-//        responce1.setChatId("476293411");
-//        responce1.setText(messageText);
             try {
                 execute(responce);
 //                execute(responce1);

@@ -53,7 +53,8 @@ public class ChatIdRepository {
     private static TgUser createTgUser(String[] metadata) {
         String chatId = metadata[0];
         String username = metadata[1];
-        return new TgUser(chatId,username);
+        String linkFiltr = metadata[2];
+        return new TgUser(chatId,username, linkFiltr);
     }
 
     public void addTgUser (TgUser tgUser) throws FileNotFoundException {
@@ -63,6 +64,8 @@ public class ChatIdRepository {
             writer.append(String.valueOf(tgUser.getChatId()));
             writer.append("%");
             writer.append(String.valueOf(tgUser.getUsername()));
+            writer.append("%");
+            writer.append(String.valueOf(tgUser.getLinkFiltr()));
 
             writer.flush();
         }
