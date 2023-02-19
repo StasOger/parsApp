@@ -3,6 +3,7 @@ package seleniumAvBy.repository;
 import seleniumAvBy.model.Post;
 import seleniumAvBy.model.TgUser;
 
+import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -20,6 +21,27 @@ public class ChatIdRepository {
     public List<TgUser> getAllTgUsers (){
         List<TgUser> tgUsers = readTgUsersFromCSV(ADDRESS_FILE);
         return tgUsers;
+    }
+
+    public void deleteTgUser(List<TgUser> tgUserList) {
+        try(FileWriter writer = new FileWriter(ADDRESS_FILE, false))
+        {
+            for (int i = 0; i < tgUserList.size(); i++) {
+                if (i!=0) {
+                    writer.append("\n");
+                }
+                TgUser tgUser = tgUserList.get(i);
+                writer.append(String.valueOf(tgUser.getChatId()));
+                writer.append("%");
+                writer.append(String.valueOf(tgUser.getUsername()));
+                writer.append("%");
+                writer.append(String.valueOf(tgUser.getLinkFiltr()));
+            }
+            writer.flush();
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     private static List<TgUser> readTgUsersFromCSV(String fileName) {
@@ -66,7 +88,6 @@ public class ChatIdRepository {
             writer.append(String.valueOf(tgUser.getUsername()));
             writer.append("%");
             writer.append(String.valueOf(tgUser.getLinkFiltr()));
-
             writer.flush();
         }
         catch(IOException ex){

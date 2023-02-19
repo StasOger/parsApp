@@ -17,8 +17,5 @@ public class MainApp {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-
-//        ParsAvBy parsAvBy = new ParsAvBy();
-//        parsAvBy.run();
     }
 }

@@ -11,6 +11,8 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import seleniumAvBy.model.TgUser;
+import seleniumAvBy.repository.ChatIdRepository;
 import seleniumAvBy.repository.PostRepository;
 import seleniumAvBy.controller.GmailController;
 import seleniumAvBy.model.Post;
@@ -20,11 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParsAvBy {
+    private static ChatIdRepository chatIdRepository = new ChatIdRepository();
     private static PostRepository postRepository = new PostRepository();
 
-    public void run() throws IOException, InterruptedException {
+    public void run(String linkFiltr) throws IOException, InterruptedException {
         Post post = new Post();
-
+        List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 
         System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
         WebDriver webDriver = new ChromeDriver();
@@ -35,7 +38,8 @@ public class ParsAvBy {
             Thread.sleep(5000);
             System.out.println("...");
 //      all new car
-            webDriver.get("https://cars.av.by/filter?year[min]=2019&price_usd[min]=12000&sort=4");
+            System.out.println(linkFiltr + " hui  ");
+            webDriver.get(linkFiltr);
 
 //      luxury car
 //            webDriver.get("https://cars.av.by/filter?brands[0][brand]=6&brands[1][brand]=8&brands[2][brand]=40&brands[3][brand]=1&brands[4][brand]=45&brands[5][brand]=330&brands[6][brand]=383&brands[7][brand]=1343&brands[8][brand]=589&brands[9][brand]=683&year[min]=2018&price_usd[min]=12000");
@@ -67,13 +71,11 @@ public class ParsAvBy {
 
                 System.out.println("New car!!!");
 
-                String message = post.getModel()+". Описание: "+post.getDescription()+".   Опубликовано "+post.getDateOfCreate()+"   "+post.getLink()+"   "+post.getPrice();
+                String message = post.getModel() + ". Описание: " + post.getDescription() + ".   Опубликовано " + post.getDateOfCreate() + "   " + post.getLink() + "   " + post.getPrice();
 
                 gmail.send(message);
                 simpleBot.sendMessage(message);
             }
-
-
         }
     }
 }

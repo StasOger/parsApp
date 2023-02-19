@@ -13,6 +13,7 @@ import seleniumAvBy.repository.ChatIdRepository;
 import seleniumAvBy.repository.PostRepository;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,56 +27,75 @@ public class SimpleBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
+//    вспомогательный список чтобы обновить базу юзеров после удаления уже существующего
+        List<TgUser> tgUser1List = new ArrayList<>();
+//    создание списка ChatId юзеров
+        List<String> tgUserChatIdList = new ArrayList<>();
+
 
         TgUser tgUser = new TgUser();
         SendMessage responce = new SendMessage();
+        responce.setText("Шаг 1: Откройте сайт https://av.by/ \n" +
+                "Шаг 2: настройте фильтр поиска нужных вам авто с нужными параметрами \n" +
+                "Шаг 3: отправьте эту ссылку в этот чат");
+        //отправка смс в тг
+        responce.setChatId(update.getMessage().getChatId().toString());
 
-        System.out.println(update.getMessage().getText());
-        System.out.println(update.getMessage().getFrom().getFirstName());
+        SendMessage responce1 = new SendMessage();
+        responce1.setText(update.getMessage().getText());
+//   достаем чатId пользователя
+        tgUser.setChatId(update.getMessage().getChatId().toString());
+//   достаем имя пользователя
+        tgUser.setUsername(update.getMessage().getFrom().getFirstName());
+//   получаем ссылку (сообщение) от пользователя
+        String s = update.getMessage().getText(), sub = "https://cars.av.by/";
 
+//   удалить старую инфу пользователя если он уже существует
+        for (TgUser tgUser1: tgUserList){
+            long t = Long.parseLong(tgUser.getChatId());
+            long t1 = Long.parseLong(tgUser1.getChatId());
 
-        String command = update.getMessage().getText();
-        if (command.equals("/run")){
-            responce.setText("Шаг 1: Откройте сайт https://av.by/ \n" +
-                    "Шаг 2: настройте фильтр поиска нужных вам авто с нужными параметрами \n" +
-                    "Шаг 3: отправьте эту ссылку в этот чат");
-            System.out.println("работает метод onUpdateReceived");
-            String linkFromUser = update.getMessage().getText();
-            System.out.println(linkFromUser);
-            long userChanId = update.getMessage().getChatId();
-            System.out.println(userChanId);
-
-            System.out.println("идем дальше");
-            responce.setChatId(update.getMessage().getChatId().toString());
-            System.out.println("идем дальше1");
-            tgUser.setChatId(responce.getChatId());
-            System.out.println("идем дальше2");
-            tgUser.setUsername(update.getMessage().getFrom().getFirstName());
-            System.out.println("идем дальше3");
-            tgUser.setLinkFiltr(update.getMessage().getText());
-
-            System.out.println(update.getMessage().getFrom().getFirstName());
-
-            System.out.println(update.getMessage().getText());
-
-            for (TgUser tgUser1 : tgUserList) {
-                chatIdList.add(tgUser1.getChatId());
+            if (t != t1){
+//                System.out.println(t1 + "!=" + t);
+                tgUser1List.add(tgUser1);
             }
-
+        }
+        System.out.println("пробую удалить нахуй существующих");
+        chatIdRepository.deleteTgUser(tgUser1List);
+//
+//   проверка на правильность ссылки
+        if (s.indexOf(sub) != -1) {
+            //если ссылка верна то
+            tgUser.setLinkFiltr(update.getMessage().getText());
             try {
-                boolean b = chatIdList.contains(responce.getChatId());
-                    if (b == false){
-                        chatIdRepository.addTgUser(tgUser);
-                    }
-            } catch (FileNotFoundException e) {
+                chatIdRepository.addTgUser(tgUser);
+            } catch (IOException  e) {
                 e.printStackTrace();
             }
 
-            try {
-                execute(responce);
-            } catch (TelegramApiException E){
-                E.printStackTrace();
+            for (TgUser tguser : tgUserList) {
+                System.out.println(tguser.getLinkFiltr());
+                ParsAvBy parsAvBy = new ParsAvBy();
+                try {
+                    parsAvBy.run(tguser.getLinkFiltr());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+
+        else {
+            //ссылка не верна
+            System.out.println("неверный формат ссылки");
+        }
+
+        //  отправка сообщения
+        try {
+            execute(responce);
+        } catch (TelegramApiException E){
+            E.printStackTrace();
         }
     }
 
