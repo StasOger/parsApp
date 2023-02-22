@@ -1,0 +1,7 @@
+
+y
+java:S1488"]Immediately return this expression instead of assigning it to the temporary variable "posts".(Öéä98¿ŠÀíâ0
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(·°ùÿÿÿÿ8ÁŠÀíâ0
+˜
+java:S1130@"vRemove the declaration of thrown exception 'java.io.FileNotFoundException', as it cannot be thrown from method's body.(ŞÁ–°úÿÿÿÿ8ôŠÀíâ0
+Z	java:S106Q"9Replace this use of System.out or System.err by a logger.(ı™øøÿÿÿÿ8şŠÀíâ0

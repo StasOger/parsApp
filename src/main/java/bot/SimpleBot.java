@@ -73,15 +73,22 @@ public class SimpleBot extends TelegramLongPollingBot {
                 e.printStackTrace();
             }
 
-            for (TgUser tguser : tgUserList) {
-                System.out.println(tguser.getLinkFiltr());
-                ParsAvBy parsAvBy = new ParsAvBy();
+            for (int i=0; i<=10000; i++) {
                 try {
-                    parsAvBy.run(tguser.getLinkFiltr());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+                for (TgUser tguser : tgUserList) {
+                    System.out.println(tguser.getLinkFiltr());
+                    ParsAvBy parsAvBy = new ParsAvBy();
+                    try {
+                        parsAvBy.run(tguser.getLinkFiltr());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

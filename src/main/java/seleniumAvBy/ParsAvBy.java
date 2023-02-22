@@ -34,8 +34,8 @@ public class ParsAvBy {
         GmailController gmail = new GmailController();
         SimpleBot simpleBot = new SimpleBot();
 
-        for (int i=0; i<=10000; i++) {
-            Thread.sleep(5000);
+//        for (int i=0; i<=10000; i++) {
+//            Thread.sleep(5000);
             System.out.println("...");
 //      all new car
             System.out.println(linkFiltr + " hui  ");
@@ -76,6 +76,7 @@ public class ParsAvBy {
                 gmail.send(message);
                 simpleBot.sendMessage(message);
             }
-        }
+            webDriver.close();
+//        }
     }
 }
