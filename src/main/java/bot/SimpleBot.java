@@ -31,7 +31,7 @@ public class SimpleBot extends TelegramLongPollingBot {
         List<TgUser> tgUser1List = new ArrayList<>();
 //    создание списка ChatId юзеров
         List<String> tgUserChatIdList = new ArrayList<>();
-
+        String command = update.getMessage().getText();
 
         TgUser tgUser = new TgUser();
         SendMessage responce = new SendMessage();
@@ -82,22 +82,19 @@ public class SimpleBot extends TelegramLongPollingBot {
                 for (TgUser tguser : tgUserList) {
                     System.out.println(tguser.getLinkFiltr());
                     ParsAvBy parsAvBy = new ParsAvBy();
-                    try {
-                        parsAvBy.run(tguser.getLinkFiltr());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+                        System.out.println("ран");
+//                        parsAvBy.run(tguser.getLinkFiltr(), command);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                 }
             }
-        }
-
-        else {
-            //ссылка не верна
+        } else {
             System.out.println("неверный формат ссылки");
         }
-
         //  отправка сообщения
         try {
             execute(responce);
@@ -108,34 +105,18 @@ public class SimpleBot extends TelegramLongPollingBot {
 
     public void sendMessage (String messageText) {
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
-
         for (TgUser tgUser:tgUserList){
             System.out.println("пытаюсь отправить сообщение ТГ");
 
             SendMessage responce = new SendMessage();
             responce.setChatId(tgUser.getChatId());
             responce.setText(messageText);
-
             try {
                 execute(responce);
-//                execute(responce1);
             } catch (TelegramApiException E){
                 E.printStackTrace();
             }
         }
-//        for (String chatId : chatIdList){
-//
-//            System.out.println("работает метод sendMessage");
-//            SendMessage responce = new SendMessage();
-//            responce.setChatId(chatId);
-//            responce.setText(messageText);
-//
-//            try {
-//                execute(responce);
-//            } catch (TelegramApiException E){
-//                E.printStackTrace();
-//            }
-//        }
     }
 
 

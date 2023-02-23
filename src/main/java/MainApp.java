@@ -13,13 +13,13 @@ public class MainApp {
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
-//        try {
-//            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-//            botsApi.registerBot(new SimpleBot());
-//        } catch (TelegramApiException e) {
-//            e.printStackTrace();
-//        }
-        ParsCopart parsCopart = new ParsCopart();
-        parsCopart.runParsCopart();
+        try {
+            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+            botsApi.registerBot(new SimpleBot());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+//        ParsCopart parsCopart = new ParsCopart();
+//        parsCopart.runParsCopart();
     }
 }
