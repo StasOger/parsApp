@@ -1,6 +1,10 @@
+import Threads.MyFirstThread;
+import Threads.MySecondThread;
 import bot.SimpleBot;
 import com.google.auto.common.BasicAnnotationProcessor;
 import copart.ParsCopart;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
@@ -13,6 +17,12 @@ public class MainApp {
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
+
+            MyFirstThread thread = new MyFirstThread();
+            thread.run();
+
+
+
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(new SimpleBot());

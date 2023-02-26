@@ -25,7 +25,7 @@ public class ParsAvBy {
     private static ChatIdRepository chatIdRepository = new ChatIdRepository();
     private static PostRepository postRepository = new PostRepository();
 
-    public void run(String linkFiltr, String command) throws IOException, InterruptedException {
+    public void run(String linkFiltr) throws IOException, InterruptedException {
         Post post = new Post();
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 
@@ -34,18 +34,11 @@ public class ParsAvBy {
         GmailController gmail = new GmailController();
         SimpleBot simpleBot = new SimpleBot();
 
-        if (command.equals("/run")) {
             for (int i = 0; i <= 10000; i++) {
-//            Thread.sleep(5000);
+                Thread.sleep(5000);
                 System.out.println("...");
-//      all new car
-                System.out.println(linkFiltr + " hui  ");
-                webDriver.get(linkFiltr);
 
-//      luxury car
-//            webDriver.get("https://cars.av.by/filter?brands[0][brand]=6&brands[1][brand]=8&brands[2][brand]=40&brands[3][brand]=1&brands[4][brand]=45&brands[5][brand]=330&brands[6][brand]=383&brands[7][brand]=1343&brands[8][brand]=589&brands[9][brand]=683&year[min]=2018&price_usd[min]=12000");
-//            String model = (new WebDriverWait(webDriver, 10))
-//                    .until(ExpectedConditions.presenceOfElementLocated(By.className("listing-item__link");
+                webDriver.get(linkFiltr);
 
                 String model = webDriver.findElement(By.className("listing-item__link")).getText();
                 String description = webDriver.findElement(By.className("listing-item__params")).getText().replaceAll("\n", " ");
@@ -78,10 +71,5 @@ public class ParsAvBy {
                     simpleBot.sendMessage(message);
                 }
             }
-        } else if (command.equals("/stop")){
-            webDriver.close();
-        } else {
-            System.out.println("я нихера не понял что ты хочешь");
-        }
     }
 }

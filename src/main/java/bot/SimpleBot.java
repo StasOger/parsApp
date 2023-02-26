@@ -1,5 +1,6 @@
 package bot;
 
+import Threads.MyFirstThread;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMediaGroup;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -48,7 +49,7 @@ public class SimpleBot extends TelegramLongPollingBot {
 //   достаем имя пользователя
         tgUser.setUsername(update.getMessage().getFrom().getFirstName());
 //   получаем ссылку (сообщение) от пользователя
-        String s = update.getMessage().getText(), sub = "https://cars.av.by/";
+        String linkMessage = update.getMessage().getText(), link = "https://cars.av.by/";
 
 //   удалить старую инфу пользователя если он уже существует
         for (TgUser tgUser1: tgUserList){
@@ -64,7 +65,7 @@ public class SimpleBot extends TelegramLongPollingBot {
         chatIdRepository.deleteTgUser(tgUser1List);
 //
 //   проверка на правильность ссылки
-        if (s.indexOf(sub) != -1) {
+        if (linkMessage.indexOf(link) != -1) {
             //если ссылка верна то
             tgUser.setLinkFiltr(update.getMessage().getText());
             try {
@@ -73,28 +74,25 @@ public class SimpleBot extends TelegramLongPollingBot {
                 e.printStackTrace();
             }
 
-            for (int i=0; i<=10000; i++) {
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for (TgUser tguser : tgUserList) {
-                    System.out.println(tguser.getLinkFiltr());
-                    ParsAvBy parsAvBy = new ParsAvBy();
-//                    try {
-                        System.out.println("ран");
-//                        parsAvBy.run(tguser.getLinkFiltr(), command);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-                }
-            }
         } else {
             System.out.println("неверный формат ссылки");
         }
+
+        for (TgUser tguser : tgUserList) {
+            System.out.println("создали новый поток" + tguser.getUsername());
+            MyFirstThread myFirstThread = new MyFirstThread();
+
+            try {
+                myFirstThread.userParser(tguser.getLinkFiltr());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            myFirstThread.start();
+        }
+
         //  отправка сообщения
         try {
             execute(responce);

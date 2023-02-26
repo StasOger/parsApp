@@ -1,0 +1,23 @@
+
+‰
+java:S1130"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(Ü“ª8’¤¾€è0
+X	java:S125"<This block of commented-out lines of code should be removed.(ñâï»8·¤¾€è0
+]	java:S125"<This block of commented-out lines of code should be removed.(İÏ±Èşÿÿÿÿ8¸¤¾€è0
+]	java:S125+"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8¸¤¾€è0
+L
+java:S1128"*Remove this unused import 'bot.SimpleBot'.(²®¬ûÿÿÿÿ8³°“Ûç0
+a
+java:S1128"DRemove this unused import 'seleniumAvBy.controller.GmailController'.(ãè˜8½¤¾€è0
+Q
+java:S1128	"4Remove this unused import 'seleniumAvBy.model.Post'.(Û³¸ç8½¤¾€è0
+X
+java:S1128
+"6Remove this unused import 'seleniumAvBy.model.TgUser'.(Ìî¤Œÿÿÿÿÿ8¿¤¾€è0
+g
+java:S1128"ERemove this unused import 'seleniumAvBy.repository.ChatIdRepository'.(á‡¾şÿÿÿÿ8À¤¾€è0
+`
+java:S1128"CRemove this unused import 'seleniumAvBy.repository.PostRepository'.(®¸›³8Á¤¾€è0
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Á¤¾€è0
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Â¤¾€è0
