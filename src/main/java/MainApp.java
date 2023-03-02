@@ -18,17 +18,17 @@ public class MainApp {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-            MyFirstThread thread = new MyFirstThread();
-            thread.run();
+        ParsAvBy parsAvBy = new ParsAvBy();
+        parsAvBy.run("https://cars.av.by/filter?year[min]=2018&sort=4");
 
 
 
-        try {
-            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(new SimpleBot());
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
+//            botsApi.registerBot(new SimpleBot());
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
 //        ParsCopart parsCopart = new ParsCopart();
 //        parsCopart.runParsCopart();
     }

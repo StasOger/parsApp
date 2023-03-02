@@ -1,6 +1,7 @@
 package bot;
 
 import Threads.MyFirstThread;
+import Threads.MySecondThread;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMediaGroup;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -30,9 +31,8 @@ public class SimpleBot extends TelegramLongPollingBot {
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 //    вспомогательный список чтобы обновить базу юзеров после удаления уже существующего
         List<TgUser> tgUser1List = new ArrayList<>();
-//    создание списка ChatId юзеров
-        List<String> tgUserChatIdList = new ArrayList<>();
-        String command = update.getMessage().getText();
+
+        ParsAvBy parsAvBy = new ParsAvBy();
 
         TgUser tgUser = new TgUser();
         SendMessage responce = new SendMessage();
@@ -41,7 +41,12 @@ public class SimpleBot extends TelegramLongPollingBot {
                 "Шаг 3: отправьте эту ссылку в этот чат");
         //отправка смс в тг
         responce.setChatId(update.getMessage().getChatId().toString());
-
+//  отправка сообщения
+        try {
+            execute(responce);
+        } catch (TelegramApiException E){
+            E.printStackTrace();
+        }
         SendMessage responce1 = new SendMessage();
         responce1.setText(update.getMessage().getText());
 //   достаем чатId пользователя
@@ -51,22 +56,22 @@ public class SimpleBot extends TelegramLongPollingBot {
 //   получаем ссылку (сообщение) от пользователя
         String linkMessage = update.getMessage().getText(), link = "https://cars.av.by/";
 
-//   удалить старую инфу пользователя если он уже существует
+//   удалить старую инфу (ссылку от пользователя) если пользователь уже существует
         for (TgUser tgUser1: tgUserList){
             long t = Long.parseLong(tgUser.getChatId());
             long t1 = Long.parseLong(tgUser1.getChatId());
-
             if (t != t1){
-//                System.out.println(t1 + "!=" + t);
                 tgUser1List.add(tgUser1);
             }
         }
         System.out.println("пробую удалить нахуй существующих");
         chatIdRepository.deleteTgUser(tgUser1List);
 //
+
+
 //   проверка на правильность ссылки
         if (linkMessage.indexOf(link) != -1) {
-            //если ссылка верна то
+            //если ссылка верна то добавляем и юзера и ссылку
             tgUser.setLinkFiltr(update.getMessage().getText());
             try {
                 chatIdRepository.addTgUser(tgUser);
@@ -77,31 +82,20 @@ public class SimpleBot extends TelegramLongPollingBot {
         } else {
             System.out.println("неверный формат ссылки");
         }
-
-        for (TgUser tguser : tgUserList) {
-            System.out.println("создали новый поток" + tguser.getUsername());
-            MyFirstThread myFirstThread = new MyFirstThread();
-
-            try {
-                myFirstThread.userParser(tguser.getLinkFiltr());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        for (int i = 0; i <= 20; i++) {
+            for (TgUser tgUser1: tgUserList){
+//                try {
+//                    parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
-
-            myFirstThread.start();
-        }
-
-        //  отправка сообщения
-        try {
-            execute(responce);
-        } catch (TelegramApiException E){
-            E.printStackTrace();
         }
     }
 
-    public void sendMessage (String messageText) {
+    public void sendMessage (String messageText, String userGetChatId) {
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
         for (TgUser tgUser:tgUserList){
             System.out.println("пытаюсь отправить сообщение ТГ");
@@ -110,14 +104,14 @@ public class SimpleBot extends TelegramLongPollingBot {
             responce.setChatId(tgUser.getChatId());
             responce.setText(messageText);
             try {
-                execute(responce);
+                if (tgUser.getChatId().equals(userGetChatId)){
+                    execute(responce);
+                }
             } catch (TelegramApiException E){
                 E.printStackTrace();
             }
         }
     }
-
-
 
     @Override
     public String getBotUsername() {

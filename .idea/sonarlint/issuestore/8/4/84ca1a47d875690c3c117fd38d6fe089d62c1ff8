@@ -1,0 +1,12 @@
+
+u
+java:S1488"_Immediately return this expression instead of assigning it to the temporary variable "tgUsers".(Æ”ÀØ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(·°ùÿÿÿÿ
+S	java:S106+"9Replace this use of System.out or System.err by a logger.(ı™øøÿÿÿÿ
+‘
+java:S1130R"vRemove the declaration of thrown exception 'java.io.FileNotFoundException', as it cannot be thrown from method's body.(ñúá–şÿÿÿÿ
+Z	java:S106^"9Replace this use of System.out or System.err by a logger.(ı™øøÿÿÿÿ8Í½÷Ûæ0
+Q
+java:S1128"4Remove this unused import 'seleniumAvBy.model.Post'.(Û³¸ç8ø¥ıÛæ0
+R
+java:S1128"0Remove this unused import 'java.awt.print.Book'.(ÕÓÄßúÿÿÿÿ8ø¥ıÛæ0
