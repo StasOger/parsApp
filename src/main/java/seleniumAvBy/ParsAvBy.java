@@ -42,55 +42,52 @@ public class ParsAvBy {
             linkList.add(p.getLink());
         }
 //
-
-            for (int i = 0; i <= 2; i++) {
-                Thread.sleep(10000);
+            int t = 1;
+            for (int i = 0; i <= 20; i++) {
+                Thread.sleep(500);
                 System.out.println("...");
 
                 webDriver.get(linkFiltr);
 
                 boolean b = true;
-                int t = 1;
+
                 while (b != false) {
-                    String model = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[2]/h3/a/span")).getText();
-                    System.out.println(model);
-                    String description = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[3]")).getText().replaceAll("\n", " ");
-                    System.out.println(description);
-                    //*[@id="__next"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[2]/div/div[3]
-                    Thread.sleep(5000);
-                    String dateOfCreate = webDriver.findElement(By.xpath("/html/body/div[1]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[1]/div/div[7]/div[2]")).getText();
-                    System.out.println(dateOfCreate);
-                    //*[@id="__next"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[2]/div/div[6]/div[2]
-                    //html/body/div[1]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[1]/div/div[7]/div[2]
-                    //*[@id="__next"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[3]/div/div[6]/div[2]
-                    //html/body/div[1]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[3]/div/div[6]/div[2]
-                    Thread.sleep(2000);
-                    String link = webDriver.findElement(By.xpath("/html/body/div[1]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[1]/div/div[7]/div[2]")).getAttribute("href");
-                    System.out.println(link);
-                    Thread.sleep(2000);
-                    String price = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[4]/div[1]")).getText();
-                    System.out.println(price);
-                    t++;
-                    Thread.sleep(2000);
-                    System.out.println("t=" + t);
-                    b = linkList.contains(link);
-                    if (b == false) {
-                        post.setModel(model);
-                        post.setDescription(description);
-                        post.setDateOfCreate(dateOfCreate);
-                        post.setLink(link);
-                        post.setPrice(price);
-                        postRepository.addPost(post);
+                    if (t != 4){
+                        String model = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[2]/h3/a/span")).getText();
+                        //*[@id="__next"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[5]/div/div[2]/h3/a/span
+                        System.out.println(model);
 
-                        System.out.println("New car!!!");
+                        String description = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[3]")).getText().replaceAll("\n", " ");
+                        System.out.println(description);
+                        Thread.sleep(1000);
+                        String dateOfCreate = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[1]/div/div[6]/div[2]")).getText();
+                        System.out.println(dateOfCreate);
 
-                        String message = post.getModel() + ". Описание: " + post.getDescription() + ".   Опубликовано " + post.getDateOfCreate() + "   " + post.getLink() + "   " + post.getPrice();
-                        System.out.println(message);
+                        String link = webDriver.findElement(By.xpath("/html/body/div[1]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[1]/div/div[2]/h3/a")).getAttribute("href");
+                        System.out.println(link);
 
-                        gmail.send(message);
+                        String price = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[4]/div[1]")).getText();
+                        System.out.println(price);
+
+                        b = linkList.contains(link);
+                        if (b == false) {
+                            post.setModel(model);
+                            post.setDescription(description);
+                            post.setDateOfCreate(dateOfCreate);
+                            post.setLink(link);
+                            post.setPrice(price);
+                            postRepository.addPost(post);
+                            System.out.println("New car!!!");
+
+                            String message = post.getModel() + ". Описание: " + post.getDescription() + ".   Опубликовано " + post.getDateOfCreate() + "   " + post.getLink() + "   " + post.getPrice();
+                            System.out.println(message);
+
+//                        gmail.send(message);
 //                    simpleBot.sendMessage(message, userGetChatId);
-                        Thread.sleep(2000);
+                        }
                     }
+                    t++;
+                    System.out.println("t=" + t);
                 }
             }
     }
