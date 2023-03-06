@@ -84,13 +84,13 @@ public class SimpleBot extends TelegramLongPollingBot {
         }
         for (int i = 0; i <= 20; i++) {
             for (TgUser tgUser1: tgUserList){
-//                try {
-//                    parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

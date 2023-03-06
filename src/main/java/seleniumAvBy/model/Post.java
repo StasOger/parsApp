@@ -3,17 +3,15 @@ package seleniumAvBy.model;
 public class Post {
     private String model;
     private String description;
-    private String dateOfCreate;
     private String link;
     private String price;
 
     public Post() {
     }
 
-    public Post(String model, String description, String dateOfCreate, String link, String price) {
+    public Post(String model, String description, String link, String price) {
         this.model = model;
         this.description = description;
-        this.dateOfCreate = dateOfCreate;
         this.link = link;
         this.price = price;
     }
@@ -23,7 +21,6 @@ public class Post {
         return "Post{" +
                 "model='" + model + '\'' +
                 ", description='" + description + '\'' +
-                ", dateOfCreate='" + dateOfCreate + '\'' +
                 ", link='" + link + '\'' +
                 ", price='" + price + '\'' +
                 '}';
@@ -51,14 +48,6 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getDateOfCreate() {
-        return dateOfCreate;
-    }
-
-    public void setDateOfCreate(String dateOfCreate) {
-        this.dateOfCreate = dateOfCreate;
     }
 
     public String getPrice() {return price;}
