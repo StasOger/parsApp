@@ -34,15 +34,6 @@ public class ParsAvBy {
         GmailController gmail = new GmailController();
         SimpleBot simpleBot = new SimpleBot();
 
-//  это чтобы потом проверять на свежесть обьявления на странице
-        List<String> linkList = new ArrayList<>();
-        List<Post> postList = postRepository.getAllPosts();
-
-        for (Post p : postList) {
-            linkList.add(p.getLink());
-        }
-//
-
             for (int i = 0; i <= 20; i++) {
                 Thread.sleep(500);
                 System.out.println("...");
@@ -55,16 +46,21 @@ public class ParsAvBy {
                 for (int j=0; j<14; j++){    
                     if (t != 4 && t != 12){
                         String model = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[2]/h3/a/span")).getText();
-                        System.out.println(model);
 
                         String description = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[3]")).getText().replaceAll("\n", " ");
-                        System.out.println(description);
 
                         String link = webDriver.findElement(By.xpath("/html/body/div[1]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div["+t+"]/div/div[2]/h3/a")).getAttribute("href");
-                        System.out.println(link);
 
                         String price = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[4]/div[1]")).getText();
-                        System.out.println(price);
+
+                        //  это чтобы потом проверять на свежесть обьявления на странице
+                        List<String> linkList = new ArrayList<>();
+                        List<Post> postList = postRepository.getAllPosts();
+
+                        for (Post p : postList) {
+                            linkList.add(p.getLink());
+                        }
+//
 
                         b = linkList.contains(link);
                         if (b == false) {
