@@ -19,7 +19,7 @@ public class ParsCopart {
 
     public void runParsCopart() throws IOException, InterruptedException {
 
-        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver111.exe");
         WebDriver webDriver = new ChromeDriver();
         webDriver.get("https://www.copart.de/en/search/bmw/?displayStr=BMW&from=%2FvehicleFinder");
         Thread.sleep(5000);

@@ -28,7 +28,7 @@ public class MyFirstThread extends Thread {
 //        Post post = new Post();
 //        List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 //
-//        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver111.exe");
 //        WebDriver webDriver = new ChromeDriver();
 //        GmailController gmail = new GmailController();
 //        SimpleBot simpleBot = new SimpleBot();
@@ -87,7 +87,7 @@ public class MyFirstThread extends Thread {
         Post post = new Post();
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 
-//        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver111.exe");
 //        WebDriver webDriver = new ChromeDriver();
 //        GmailController gmail = new GmailController();
 //        SimpleBot simpleBot = new SimpleBot();

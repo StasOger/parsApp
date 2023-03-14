@@ -13,7 +13,7 @@ public class MySecondThread extends Thread {
     }
 
     public String userParser2(String linkFiltr) throws IOException, InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver111.exe");
         WebDriver webDriver = new ChromeDriver();
         webDriver.get(linkFiltr);
         return linkFiltr;

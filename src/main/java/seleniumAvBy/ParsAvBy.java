@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -25,12 +26,20 @@ public class ParsAvBy {
     private static ChatIdRepository chatIdRepository = new ChatIdRepository();
     private static PostRepository postRepository = new PostRepository();
 
+    public void close(){
+        WebDriver webDriver = new ChromeDriver();
+        webDriver.close();
+    }
+
     public void run(String linkFiltr, String userGetChatId) throws IOException, InterruptedException {
         Post post = new Post();
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 
-        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver.exe");
-        WebDriver webDriver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "selenium\\chromedriver111.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        WebDriver webDriver = new ChromeDriver(options);
+
         GmailController gmail = new GmailController();
         SimpleBot simpleBot = new SimpleBot();
 
@@ -74,8 +83,8 @@ public class ParsAvBy {
                             String message = post.getModel() + ". Описание: " + post.getDescription() + "   " + post.getLink() + "   " + post.getPrice();
                             System.out.println(message);
 
-                        //gmail.send(message);
-                        simpleBot.sendMessage(message, userGetChatId);
+                            //gmail.send(message);
+                            simpleBot.sendMessage(message, userGetChatId);
                         }
                     }
                     System.out.println("t=" + t);
