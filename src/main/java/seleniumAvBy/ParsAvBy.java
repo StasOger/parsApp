@@ -43,8 +43,8 @@ public class ParsAvBy {
         GmailController gmail = new GmailController();
         SimpleBot simpleBot = new SimpleBot();
 
-            for (int i = 0; i <= 20; i++) {
-                Thread.sleep(500);
+//            for (int i = 0; i <= 20; i++) {
+//                Thread.sleep(500);
                 System.out.println("...");
 
                 webDriver.get(linkFiltr);
@@ -52,8 +52,8 @@ public class ParsAvBy {
                 boolean b;
                 int t = 1;
 //                while (b != false && t<23) {
-                for (int j=0; j<14; j++){    
-                    if (t != 4 && t != 12){
+                for (int j=0; j<29; j++){
+                    if (t != 4 && t != 12 && t != 23 && t != 28 ){
                         String model = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[2]/h3/a/span")).getText();
 
                         String description = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[3]")).getText().replaceAll("\n", " ");
@@ -91,6 +91,6 @@ public class ParsAvBy {
                     t++;
                 }
 
-            }
+//            }
     }
 }

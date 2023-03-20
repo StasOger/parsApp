@@ -23,7 +23,6 @@ public class MainApp {
             e.printStackTrace();
         }
 
-
 //        ParsCopart parsCopart = new ParsCopart();
 //        parsCopart.runParsCopart();
 
