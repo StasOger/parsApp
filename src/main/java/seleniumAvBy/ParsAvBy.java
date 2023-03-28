@@ -48,11 +48,14 @@ public class ParsAvBy {
                 System.out.println("...");
 
                 webDriver.get(linkFiltr);
+//                WebElement paginationBtn = webDriver.findElement(By.xpath("*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[4]/div/div[1]/a"));
+//                Thread.sleep(5000);
+//                paginationBtn.click();
 
                 boolean b;
                 int t = 1;
 //                while (b != false && t<23) {
-                for (int j=0; j<29; j++){
+                for (int j=0; j<40; j++){
                     if (t != 4 && t != 12 && t != 23 && t != 28 ){
                         String model = webDriver.findElement(By.xpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[2]/h3/a/span")).getText();
 
@@ -89,6 +92,7 @@ public class ParsAvBy {
                     }
                     System.out.println("t=" + t);
                     t++;
+                    webDriver.close();
                 }
 
 //            }

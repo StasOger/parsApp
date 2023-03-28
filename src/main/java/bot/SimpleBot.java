@@ -91,6 +91,7 @@ public class SimpleBot extends TelegramLongPollingBot {
     }
 
     public void sendMsg (Message message, String text) {
+        ParsAvBy parsAvBy = new ParsAvBy();
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
 
@@ -108,8 +109,9 @@ public class SimpleBot extends TelegramLongPollingBot {
         // Первая строчка клавиатуры
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
-        keyboardFirstRow.add("FIND");
+        keyboardFirstRow.add("FIND ON AV.BY");
         keyboardFirstRow.add("HELP");
+
 //        // Вторая строчка клавиатуры
 //        KeyboardRow keyboardSecondRow = new KeyboardRow();
 //        // Добавляем кнопки во вторую строчку клавиатуры
@@ -126,7 +128,7 @@ public class SimpleBot extends TelegramLongPollingBot {
         sendMessage.setReplyToMessageId(message.getMessageId());
 
         try {
-            if (text.equals("FIND")){
+            if (text.equals("FIND ON AV.BY")){
                 sendMessage.setText(text);
                 execute(sendMessage);
             } else if (text.equals("HELP")){
@@ -136,6 +138,8 @@ public class SimpleBot extends TelegramLongPollingBot {
                         "Шаг 4: чтобы начать поиск авто нажмите кнопку FIND\n"+ "\n" +
                         "после нажатия на FIND потребуется некоторое время для поиска обьявлений");
                 execute(sendMessage);
+            } else if (text.equals("STOP")){
+                parsAvBy.close();
             }
         } catch (TelegramApiException e) {
             e.printStackTrace();
