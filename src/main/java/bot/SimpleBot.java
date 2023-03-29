@@ -2,6 +2,7 @@ package bot;
 
 import Threads.MyFirstThread;
 import Threads.MySecondThread;
+import copart.ParsCopart;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -41,7 +42,7 @@ public class SimpleBot extends TelegramLongPollingBot {
         List<TgUser> tgUser1List = new ArrayList<>();
 
         ParsAvBy parsAvBy = new ParsAvBy();
-
+        ParsCopart parsCopart = new ParsCopart();
         TgUser tgUser = new TgUser();
 
 //   достаем чатId пользователя
@@ -51,8 +52,14 @@ public class SimpleBot extends TelegramLongPollingBot {
 
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
-            if (message.getText().equals("FIND")){
-                sendMsg(message, "FIND");
+            if (message.getText().equals("FIND ON AV.BY")){
+                try {
+                    sendMsg(message, "FIND ON AV.BY");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 ////     ПАРСЕР
                 for (TgUser tgUser1: tgUserList){
                     if (tgUser1.getChatId().equals(tgUser.getChatId())) {
@@ -85,15 +92,30 @@ public class SimpleBot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             } else if (message.getText().equals("HELP")){
-                sendMsg(message, "HELP");
+                try {
+                    sendMsg(message, "HELP");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            } else if (message.getText().equals("FIND ON COPART")){
+                try {
+                    parsCopart.runParsCopart();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
 
-    public void sendMsg (Message message, String text) {
-        ParsAvBy parsAvBy = new ParsAvBy();
+    public void sendMsg (Message message, String text) throws IOException, InterruptedException {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
+
+        ParsCopart parsCopart = new ParsCopart();
 
         // Создаем клавиатуру
         ReplyKeyboardMarkup replyKeyboardMarkup = new
@@ -110,8 +132,8 @@ public class SimpleBot extends TelegramLongPollingBot {
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Добавляем кнопки в первую строчку клавиатуры
         keyboardFirstRow.add("FIND ON AV.BY");
+        keyboardFirstRow.add("FIND ON COPART");
         keyboardFirstRow.add("HELP");
-
 //        // Вторая строчка клавиатуры
 //        KeyboardRow keyboardSecondRow = new KeyboardRow();
 //        // Добавляем кнопки во вторую строчку клавиатуры
@@ -138,8 +160,8 @@ public class SimpleBot extends TelegramLongPollingBot {
                         "Шаг 4: чтобы начать поиск авто нажмите кнопку FIND\n"+ "\n" +
                         "после нажатия на FIND потребуется некоторое время для поиска обьявлений");
                 execute(sendMessage);
-            } else if (text.equals("STOP")){
-                parsAvBy.close();
+            } else if (text.equals("FIND ON COPART")){
+                parsCopart.runParsCopart();
             }
         } catch (TelegramApiException e) {
             e.printStackTrace();
