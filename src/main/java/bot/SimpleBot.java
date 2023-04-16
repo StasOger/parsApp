@@ -101,11 +101,24 @@ public class SimpleBot extends TelegramLongPollingBot {
                 }
             } else if (message.getText().equals("FIND ON COPART")){
                 try {
-                    parsCopart.runParsCopart();
+                    sendMsg(message, "FIND ON COPART");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
+                }
+                ////     ПАРСЕР
+                for (TgUser tgUser1: tgUserList){
+                    if (tgUser1.getChatId().equals(tgUser.getChatId())) {
+                        try {
+                            parsCopart.runParsCopart(tgUser1.getChatId());
+                            System.out.println(tgUser1.getChatId() + " chatID " + tgUser1.getUsername());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }
@@ -161,7 +174,8 @@ public class SimpleBot extends TelegramLongPollingBot {
                         "после нажатия на FIND потребуется некоторое время для поиска обьявлений");
                 execute(sendMessage);
             } else if (text.equals("FIND ON COPART")){
-                parsCopart.runParsCopart();
+                sendMessage.setText(text);
+                execute(sendMessage);
             }
         } catch (TelegramApiException e) {
             e.printStackTrace();
