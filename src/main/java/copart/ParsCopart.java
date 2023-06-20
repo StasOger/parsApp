@@ -3,12 +3,10 @@ package copart;
 import bot.SimpleBot;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import seleniumAvBy.controller.GmailController;
-import seleniumAvBy.model.Post;
-import seleniumAvBy.model.TgUser;
+import model.Post;
+import model.TgUser;
 import seleniumAvBy.repository.ChatIdRepository;
 import seleniumAvBy.repository.PostRepository;
 

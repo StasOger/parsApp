@@ -1,17 +1,10 @@
 package Threads;
 
-import bot.SimpleBot;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import seleniumAvBy.ParsAvBy;
-import seleniumAvBy.controller.GmailController;
-import seleniumAvBy.model.Post;
-import seleniumAvBy.model.TgUser;
+import model.Post;
+import model.TgUser;
 import seleniumAvBy.repository.ChatIdRepository;
 import seleniumAvBy.repository.PostRepository;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

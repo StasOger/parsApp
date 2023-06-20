@@ -1,6 +1,6 @@
 package seleniumAvBy.repository;
 
-import seleniumAvBy.model.Post;
+import model.Post;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

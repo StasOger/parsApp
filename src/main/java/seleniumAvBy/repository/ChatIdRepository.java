@@ -1,9 +1,7 @@
 package seleniumAvBy.repository;
 
-import seleniumAvBy.model.Post;
-import seleniumAvBy.model.TgUser;
+import model.TgUser;
 
-import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

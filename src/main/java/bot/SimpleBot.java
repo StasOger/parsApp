@@ -1,32 +1,23 @@
 package bot;
 
-import Threads.MyFirstThread;
-import Threads.MySecondThread;
 import copart.ParsCopart;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMediaGroup;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import seleniumAvBy.ParsAvBy;
-import seleniumAvBy.model.Post;
-import seleniumAvBy.model.TgUser;
+import seleniumAvBy.ParsAvBySelenium;
+import model.TgUser;
+import seleniumAvBy.ParsAvByJsoup;
 import seleniumAvBy.repository.ChatIdRepository;
 import seleniumAvBy.repository.PostRepository;
 
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class SimpleBot extends TelegramLongPollingBot {
 
@@ -41,7 +32,8 @@ public class SimpleBot extends TelegramLongPollingBot {
 ////    вспомогательный список чтобы обновить базу юзеров после удаления уже существующего
         List<TgUser> tgUser1List = new ArrayList<>();
 
-        ParsAvBy parsAvBy = new ParsAvBy();
+        ParsAvBySelenium parsAvBy = new ParsAvBySelenium();
+        ParsAvByJsoup parsAvByJsoup = new ParsAvByJsoup();
         ParsCopart parsCopart = new ParsCopart();
         TgUser tgUser = new TgUser();
 
@@ -64,7 +56,8 @@ public class SimpleBot extends TelegramLongPollingBot {
                 for (TgUser tgUser1: tgUserList){
                     if (tgUser1.getChatId().equals(tgUser.getChatId())) {
                         try {
-                            parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
+//                            parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
+                            parsAvByJsoup.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
                             System.out.println(tgUser1.getChatId() + " chatID " + tgUser1.getUsername());
                         } catch (IOException e) {
                             e.printStackTrace();
