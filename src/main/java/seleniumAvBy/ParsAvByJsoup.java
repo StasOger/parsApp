@@ -30,20 +30,21 @@ public class ParsAvByJsoup {
         SimpleBot simpleBot = new SimpleBot();
 
         System.out.println("...");
-        Document doc = Jsoup.connect(linkFiltr).get();
+
 
         boolean b;
 
         for (int i = 0; i < 1000; i++) {
             int t = 1;
-            for (int j = 0; j < 40; j++) {
-                if (t != 4 && t != 12 && t != 23 && t != 28) {
+            for (int j = 0; j < 28; j++) {
+                if (t != 4 && t != 12 && t != 23) {
+                    Document doc = Jsoup.connect(linkFiltr).get();
                     Elements model = doc.selectXpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[2]/h3/a/span");
                     String modelStr = model.html().replaceAll("[^\\da-zA-Zа-яёА-ЯЁ ]", "").replaceAll("   ", " ");
                     System.out.println(modelStr);
 
                     Elements link = doc.selectXpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[2]/h3/a");
-                    String linkStr = "https://cars.av.by/" + link.attr("href");
+                    String linkStr = "https://cars.av.by" + link.attr("href");
                     System.out.println(linkStr);
 
                     Elements price = doc.selectXpath("//*[@id=\"__next\"]/div[2]/main/div/div/div[1]/div[4]/div[3]/div/div[3]/div/div[" + t + "]/div/div[4]/div[2]");
@@ -58,7 +59,7 @@ public class ParsAvByJsoup {
                         linkList.add(p.getLink());
                     }
                     //
-
+                    System.out.println("hay");
                     b = linkList.contains(linkStr);
                     if (b == false) {
                         post.setModel(modelStr);

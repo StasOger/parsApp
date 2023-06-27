@@ -27,6 +27,7 @@ public class SimpleBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+
         String link = "https://cars.av.by/";
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 ////    вспомогательный список чтобы обновить базу юзеров после удаления уже существующего
@@ -175,7 +176,7 @@ public class SimpleBot extends TelegramLongPollingBot {
         }
     }
 
-
+//
     public void sendMessage (String messageText, String userGetChatId) {
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
         for (TgUser tgUser:tgUserList){
