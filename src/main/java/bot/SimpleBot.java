@@ -8,11 +8,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import seleniumAvBy.ParsAvBySelenium;
+import parserAvBy.ParsAvBySelenium;
 import model.TgUser;
-import seleniumAvBy.ParsAvByJsoup;
-import seleniumAvBy.repository.ChatIdRepository;
-import seleniumAvBy.repository.PostRepository;
+import parserAvBy.ParsAvByJsoup;
+import parserAvBy.repository.ChatIdRepository;
+import parserAvBy.repository.PostRepository;
 
 
 import java.io.IOException;
@@ -28,6 +28,8 @@ public class SimpleBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
+
+
         String link = "https://cars.av.by/";
         List<TgUser> tgUserList = chatIdRepository.getAllTgUsers();
 ////    вспомогательный список чтобы обновить базу юзеров после удаления уже существующего
@@ -40,8 +42,10 @@ public class SimpleBot extends TelegramLongPollingBot {
 
 //   достаем чатId пользователя
         tgUser.setChatId(update.getMessage().getChatId().toString());
+        System.out.println(update.getMessage().getChatId().toString());
 //   достаем имя пользователя
         tgUser.setUsername(update.getMessage().getFrom().getFirstName());
+        System.out.println(update.getMessage().getFrom().getFirstName());
 
         Message message = update.getMessage();
         if (message != null && message.hasText()) {
@@ -59,7 +63,7 @@ public class SimpleBot extends TelegramLongPollingBot {
                         try {
 //                            parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
                             parsAvByJsoup.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
-                            System.out.println(tgUser1.getChatId() + " chatID " + tgUser1.getUsername());
+                            System.out.println(tgUser.getChatId() + " chatID " + tgUser.getUsername());
                         } catch (IOException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {

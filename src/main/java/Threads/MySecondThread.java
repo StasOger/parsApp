@@ -4,9 +4,9 @@ import bot.SimpleBot;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import parserAvBy.repository.ChatIdRepository;
+import parserAvBy.repository.PostRepository;
 
-import seleniumAvBy.repository.ChatIdRepository;
-import seleniumAvBy.repository.PostRepository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

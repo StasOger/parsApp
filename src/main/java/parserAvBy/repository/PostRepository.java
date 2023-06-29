@@ -1,4 +1,4 @@
-package seleniumAvBy.repository;
+package parserAvBy.repository;
 
 import model.Post;
 
@@ -63,16 +63,19 @@ public class PostRepository {
     public void addPost (Post post) throws FileNotFoundException {
         try(FileWriter writer = new FileWriter(ADDRESS_FILE, true))
         {
-            writer.append("\n");
-            writer.append(String.valueOf(post.getModel()));
-            writer.append("%");
-            writer.append(String.valueOf(post.getDescription()));
-            writer.append("%");
-            writer.append(String.valueOf(post.getLink()));
-            writer.append("%");
-            writer.append(String.valueOf(post.getPrice()));
+            if (post.getModel()!=null){
+                writer.append("\n");
+                writer.append(String.valueOf(post.getModel()));
+                writer.append("%");
+                writer.append(String.valueOf(post.getDescription()));
+                writer.append("%");
+                writer.append(String.valueOf(post.getLink()));
+                writer.append("%");
+                writer.append(String.valueOf(post.getPrice()));
 
-            writer.flush();
+                writer.flush();
+            }
+
         }
         catch(IOException ex){
             System.out.println(ex.getMessage());

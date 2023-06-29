@@ -1,4 +1,4 @@
-package seleniumAvBy;
+package parserAvBy;
 
 import bot.SimpleBot;
 import org.openqa.selenium.By;
@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import model.TgUser;
-import seleniumAvBy.repository.ChatIdRepository;
-import seleniumAvBy.repository.PostRepository;
+import parserAvBy.repository.ChatIdRepository;
+import parserAvBy.repository.PostRepository;
 import controller.GmailController;
 import model.Post;
 

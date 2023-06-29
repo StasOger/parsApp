@@ -2,8 +2,8 @@ package Threads;
 
 import model.Post;
 import model.TgUser;
-import seleniumAvBy.repository.ChatIdRepository;
-import seleniumAvBy.repository.PostRepository;
+import parserAvBy.repository.ChatIdRepository;
+import parserAvBy.repository.PostRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;

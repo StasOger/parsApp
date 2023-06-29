@@ -1,4 +1,4 @@
-package seleniumAvBy.repository;
+package parserAvBy.repository;
 
 import model.TgUser;
 
