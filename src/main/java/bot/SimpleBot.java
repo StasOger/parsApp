@@ -35,7 +35,6 @@ public class SimpleBot extends TelegramLongPollingBot {
 ////    вспомогательный список чтобы обновить базу юзеров после удаления уже существующего
         List<TgUser> tgUser1List = new ArrayList<>();
 
-        ParsAvBySelenium parsAvBy = new ParsAvBySelenium();
         ParsAvByJsoup parsAvByJsoup = new ParsAvByJsoup();
         ParsCopart parsCopart = new ParsCopart();
         TgUser tgUser = new TgUser();
@@ -48,76 +47,87 @@ public class SimpleBot extends TelegramLongPollingBot {
         System.out.println(update.getMessage().getFrom().getFirstName());
 
         Message message = update.getMessage();
-        if (message != null && message.hasText()) {
-            if (message.getText().equals("FIND ON AV.BY")){
-                try {
-                    sendMsg(message, "FIND ON AV.BY");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                ////     ПАРСЕР
-                for (TgUser tgUser1: tgUserList){
-                    if (tgUser1.getChatId().equals(tgUser.getChatId())) {
-                        try {
+
+        for (int i=0; i<1000; i++){
+            if (message != null && message.hasText()) {
+                if (message.getText().equals("FIND ON AV.BY")){
+                    try {
+                        sendMsg(message, "FIND ON AV.BY");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    ////     ПАРСЕР
+                    for (TgUser tgUser1: tgUserList){
+                        if (tgUser1.getChatId().equals(tgUser.getChatId())) {
+                            try {
 //                            parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
-                            parsAvByJsoup.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
-                            System.out.println(tgUser.getChatId() + " chatID " + tgUser.getUsername());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                                parsAvByJsoup.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
+                                System.out.println(tgUser.getChatId() + " chatID " + tgUser.getUsername());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-                }
-            } else if (message.getText().indexOf(link) != -1){
+
+                    message.setText(null);
+                } else if (message.getText().indexOf(link) != -1){
 // удалить старую инфу (ссылку от пользователя) если пользователь уже существует
-                for (TgUser tgUser1: tgUserList){
-                    long t = Long.parseLong(tgUser.getChatId());
-                    long t1 = Long.parseLong(tgUser1.getChatId());
-                    if (t != t1){
-                        tgUser1List.add(tgUser1);
+                    for (TgUser tgUser1: tgUserList){
+                        long t = Long.parseLong(tgUser.getChatId());
+                        long t1 = Long.parseLong(tgUser1.getChatId());
+                        if (t != t1){
+                            tgUser1List.add(tgUser1);
+                        }
                     }
-                }
-                System.out.println("пробую удалить нахуй существующих");
-                chatIdRepository.deleteTgUser(tgUser1List);
+                    System.out.println("пробую удалить нахуй существующих");
+                    chatIdRepository.deleteTgUser(tgUser1List);
 // если ссылка верна то добавляем и юзера и ссылку
-                tgUser.setLinkFiltr(update.getMessage().getText());
-                try {
-                    chatIdRepository.addTgUser(tgUser);
-                } catch (IOException  e) {
-                    e.printStackTrace();
-                }
-            } else if (message.getText().equals("HELP")){
-                try {
-                    sendMsg(message, "HELP");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            } else if (message.getText().equals("FIND ON COPART")){
-                try {
-                    sendMsg(message, "FIND ON COPART");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                ////     ПАРСЕР
-                for (TgUser tgUser1: tgUserList){
-                    if (tgUser1.getChatId().equals(tgUser.getChatId())) {
-                        try {
-                            parsCopart.runParsCopart(tgUser1.getChatId());
-                            System.out.println(tgUser1.getChatId() + " chatID " + tgUser1.getUsername());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                    tgUser.setLinkFiltr(update.getMessage().getText());
+                    try {
+                        chatIdRepository.addTgUser(tgUser);
+                    } catch (IOException  e) {
+                        e.printStackTrace();
+                    }
+                } else if (message.getText().equals("HELP")){
+                    try {
+                        sendMsg(message, "HELP");
+                        message.setText(null);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else if (message.getText().equals("FIND ON COPART")){
+                    try {
+                        sendMsg(message, "FIND ON COPART");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    ////     ПАРСЕР
+                    for (TgUser tgUser1: tgUserList){
+                        if (tgUser1.getChatId().equals(tgUser.getChatId())) {
+                            try {
+                                parsCopart.runParsCopart(tgUser1.getChatId());
+                                System.out.println(tgUser1.getChatId() + " chatID " + tgUser1.getUsername());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }

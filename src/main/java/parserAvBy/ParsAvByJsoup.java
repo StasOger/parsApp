@@ -18,9 +18,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParsAvByJsoup {
+public class ParsAvByJsoup extends Thread{
     private static ChatIdRepository chatIdRepository = new ChatIdRepository();
     private static PostRepository postRepository = new PostRepository();
+
 
     public void run(String linkFiltr, String userGetChatId) throws IOException, InterruptedException {
         Post post = new Post();
