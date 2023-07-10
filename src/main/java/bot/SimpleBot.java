@@ -48,11 +48,11 @@ public class SimpleBot extends TelegramLongPollingBot {
 
         Message message = update.getMessage();
 
-        for (int i=0; i<1000; i++){
+//        for (int i=0; i<1000; i++){
             if (message != null && message.hasText()) {
                 if (message.getText().equals("FIND ON AV.BY")){
                     try {
-                        sendMsg(message, "FIND ON AV.BY");
+                        sendMsg(message, "loading...");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     } catch (InterruptedException e) {
@@ -71,6 +71,12 @@ public class SimpleBot extends TelegramLongPollingBot {
                                 e.printStackTrace();
                             }
                         }
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        parsAvByJsoup.interrupt();
                     }
 
                     message.setText(null);
@@ -129,7 +135,7 @@ public class SimpleBot extends TelegramLongPollingBot {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
+//        }
     }
 
     public void sendMsg (Message message, String text) throws IOException, InterruptedException {
