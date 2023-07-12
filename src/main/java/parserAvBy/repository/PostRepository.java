@@ -57,7 +57,10 @@ public class PostRepository {
         String description = metadata[1];
         String link = metadata[2];
         String price = metadata[3];
-        return new Post(model, description, link, price);
+        if (model != null){
+            return new Post(model, description, link, price);
+        }
+        return null;
     }
 
     public void addPost (Post post) throws FileNotFoundException {

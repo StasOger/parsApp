@@ -69,15 +69,16 @@ public class ParsAvByJsoup extends Thread{
                         price[i] = priceStr;
                     }
                 }
-
+                System.out.println("69");
                     //  это чтобы потом проверять на свежесть обьявления на странице
                     List<String> linkList = new ArrayList<>();
                     List<Post> postList = postRepository.getAllPosts();
-
+                System.out.println("69");
                     for (Post p : postList) {
                         linkList.add(p.getLink());
                     }
                     //
+                System.out.println("69");
                     for (int n=0; n<25; n++){
                         System.out.println("hay");
                         b = linkList.contains(link[n]);
