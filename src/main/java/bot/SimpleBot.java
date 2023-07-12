@@ -63,11 +63,16 @@ public class SimpleBot extends TelegramLongPollingBot {
                         if (tgUser1.getChatId().equals(tgUser.getChatId())) {
                             try {
 //                            parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
-                                parsAvByJsoup.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
-                                System.out.println(tgUser.getChatId() + " chatID " + tgUser.getUsername());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } catch (InterruptedException e) {
+                                for (int tim=0; tim<5; tim++){
+                                    parsAvByJsoup.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
+                                    System.out.println("22222222222222222222");
+                                    Thread.sleep(5000);
+                                    if (message.getText().equals("STOP")){
+                                        System.out.println("GAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAY");
+                                        break;
+                                    }
+                                }
+                            } catch (InterruptedException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -102,17 +107,13 @@ public class SimpleBot extends TelegramLongPollingBot {
                     try {
                         sendMsg(message, "HELP");
                         message.setText(null);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } catch (InterruptedException e) {
+                    } catch (IOException | InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                 } else if (message.getText().equals("FIND ON COPART")){
                     try {
                         sendMsg(message, "FIND ON COPART");
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } catch (InterruptedException e) {
+                    } catch (IOException | InterruptedException e) {
                         throw new RuntimeException(e);
                     }
                     ////     ПАРСЕР
@@ -121,9 +122,7 @@ public class SimpleBot extends TelegramLongPollingBot {
                             try {
                                 parsCopart.runParsCopart(tgUser1.getChatId());
                                 System.out.println(tgUser1.getChatId() + " chatID " + tgUser1.getUsername());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } catch (InterruptedException e) {
+                            } catch (IOException | InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
