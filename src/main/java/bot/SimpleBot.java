@@ -1,6 +1,6 @@
 package bot;
 
-import copart.ParsCopart;
+import copart.ParsCopartJsoup;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -8,7 +8,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import parserAvBy.ParsAvBySelenium;
 import model.TgUser;
 import parserAvBy.ParsAvByJsoup;
 import parserAvBy.repository.ChatIdRepository;
@@ -36,7 +35,7 @@ public class SimpleBot extends TelegramLongPollingBot {
         List<TgUser> tgUser1List = new ArrayList<>();
 
         ParsAvByJsoup parsAvByJsoup = new ParsAvByJsoup();
-        ParsCopart parsCopart = new ParsCopart();
+        ParsCopartJsoup parsCopartJsoup = new ParsCopartJsoup();
         TgUser tgUser = new TgUser();
 
 //   достаем чатId пользователя
@@ -94,7 +93,7 @@ public class SimpleBot extends TelegramLongPollingBot {
                             tgUser1List.add(tgUser1);
                         }
                     }
-                    System.out.println("пробую удалить нахуй существующих");
+                    System.out.println("пробую удалить нахуй существующий фильтр на AV.BY");
                     chatIdRepository.deleteTgUser(tgUser1List);
 // если ссылка верна то добавляем и юзера и ссылку
                     tgUser.setLinkFiltr(update.getMessage().getText());
@@ -120,7 +119,7 @@ public class SimpleBot extends TelegramLongPollingBot {
                     for (TgUser tgUser1: tgUserList){
                         if (tgUser1.getChatId().equals(tgUser.getChatId())) {
                             try {
-                                parsCopart.runParsCopart(tgUser1.getChatId());
+                                parsCopartJsoup.runParsCopart(tgUser1.getChatId());
                                 System.out.println(tgUser1.getChatId() + " chatID " + tgUser1.getUsername());
                             } catch (IOException | InterruptedException e) {
                                 e.printStackTrace();
@@ -140,8 +139,6 @@ public class SimpleBot extends TelegramLongPollingBot {
     public void sendMsg (Message message, String text) throws IOException, InterruptedException {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
-
-        ParsCopart parsCopart = new ParsCopart();
 
         // Создаем клавиатуру
         ReplyKeyboardMarkup replyKeyboardMarkup = new
@@ -177,8 +174,8 @@ public class SimpleBot extends TelegramLongPollingBot {
 
         try {
             if (text.equals("FIND ON AV.BY")){
-                sendMessage.setText(text);
-                execute(sendMessage);
+//                sendMessage.setText(text);
+//                execute(sendMessage);
             } else if (text.equals("HELP")){
                 sendMessage.setText("Шаг 1: Откройте сайт https://av.by/ \n" +
                         "Шаг 2: настройте фильтр поиска нужных вам авто с нужными параметрами \n" +
@@ -187,8 +184,8 @@ public class SimpleBot extends TelegramLongPollingBot {
                         "после нажатия на FIND потребуется некоторое время для поиска обьявлений");
                 execute(sendMessage);
             } else if (text.equals("FIND ON COPART")){
-                sendMessage.setText(text);
-                execute(sendMessage);
+//                sendMessage.setText(text);
+//                execute(sendMessage);
             }
         } catch (TelegramApiException e) {
             e.printStackTrace();
