@@ -1,6 +1,7 @@
 package bot;
 
 import copart.ParsCopartJsoup;
+import copart.ParsCopartSelenium;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -36,6 +37,8 @@ public class SimpleBot extends TelegramLongPollingBot {
 
         ParsAvByJsoup parsAvByJsoup = new ParsAvByJsoup();
         ParsCopartJsoup parsCopartJsoup = new ParsCopartJsoup();
+        ParsCopartSelenium parsCopartSelenium = new ParsCopartSelenium();
+
         TgUser tgUser = new TgUser();
 
 //   достаем чатId пользователя
@@ -119,7 +122,7 @@ public class SimpleBot extends TelegramLongPollingBot {
                     for (TgUser tgUser1: tgUserList){
                         if (tgUser1.getChatId().equals(tgUser.getChatId())) {
                             try {
-                                parsCopartJsoup.runParsCopart(tgUser1.getChatId());
+                                parsCopartSelenium.runParsCopart(tgUser1.getChatId());
                                 System.out.println(tgUser1.getChatId() + " chatID " + tgUser1.getUsername());
                             } catch (IOException | InterruptedException e) {
                                 e.printStackTrace();
