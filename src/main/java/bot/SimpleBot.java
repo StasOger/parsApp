@@ -65,7 +65,7 @@ public class SimpleBot extends TelegramLongPollingBot {
                         if (tgUser1.getChatId().equals(tgUser.getChatId())) {
                             try {
 //                            parsAvBy.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
-                                for (int tim=0; tim<5; tim++){
+                                for (int tim=0; tim<100; tim++){
                                     parsAvByJsoup.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
                                     System.out.println("22222222222222222222");
                                     Thread.sleep(5000);
