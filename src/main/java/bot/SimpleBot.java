@@ -1,6 +1,5 @@
 package bot;
 
-import copart.ParsCopartJsoup;
 import copart.ParsCopartSelenium;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -69,10 +68,6 @@ public class SimpleBot extends TelegramLongPollingBot {
                                     parsAvByJsoup.run(tgUser1.getLinkFiltr(), tgUser1.getChatId());
                                     System.out.println("22222222222222222222");
                                     Thread.sleep(5000);
-                                    if (message.getText().equals("STOP")){
-                                        System.out.println("GAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAYGAY");
-                                        break;
-                                    }
                                 }
                             } catch (InterruptedException | IOException e) {
                                 e.printStackTrace();
@@ -96,7 +91,7 @@ public class SimpleBot extends TelegramLongPollingBot {
                             tgUser1List.add(tgUser1);
                         }
                     }
-                    System.out.println("пробую удалить нахуй существующий фильтр на AV.BY");
+                    System.out.println("пробую удалить существующий фильтр на AV.BY");
                     chatIdRepository.deleteTgUser(tgUser1List);
 // если ссылка верна то добавляем и юзера и ссылку
                     tgUser.setLinkFiltr(update.getMessage().getText());
